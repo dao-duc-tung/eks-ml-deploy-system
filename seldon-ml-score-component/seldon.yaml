@@ -1,0 +1,27 @@
+apiVersion: machinelearning.seldon.io/v1alpha2
+kind: SeldonDeployment
+metadata:
+  labels:
+    app: seldon
+  name: mlscore
+spec:
+  annotations:
+    project_name: k8s-mlops
+    deployment_version: v1
+  name: mlscore
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - name: classifier
+          image: tungdao17/test-ml-score-seldon-api:latest
+    graph:
+      children: []
+      endpoint:
+        type: REST
+      name: classifier
+      type: MODEL
+    name: single-model
+    replicas: 1
+    annotations:
+      predictor_version: v1
