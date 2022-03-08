@@ -14,7 +14,7 @@ spec:
     - spec:
         containers:
         - name: classifier
-          image: tungdao17/test-ml-score-seldon-api:latest
+          image: <docker-account>/test-ml-score-seldon-api:latest
           resources:
             requests:
               cpu: 100m

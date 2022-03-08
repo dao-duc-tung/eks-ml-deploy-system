@@ -2,7 +2,7 @@ app:
   name: test-ml-score
   env: prod
   namespace: test-ml-app
-  image: tungdao17/test-ml-score-api
+  image: <docker-account>/test-ml-score-api
 
 replicas: 2
 containerPort: 5000

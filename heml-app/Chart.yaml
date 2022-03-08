@@ -1,5 +1,5 @@
 apiVersion: v2
-name: heml-ml-score-app
+name: heml-app
 description: ML model scoring service.
 
 # A chart can be either an 'application' or a 'library' chart.

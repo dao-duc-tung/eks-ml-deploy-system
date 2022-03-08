@@ -3,10 +3,11 @@
 ## Build a simple ML app using Flask
 
 ```bash
+export DOCKER_ACC=<your-docker-account>
 # Build Docker image
-docker build --tag tungdao17/test-ml-score-api py-flask-ml-score-api
+docker build --tag $DOCKER_ACC/test-ml-score-api py-flask-app
 # Test
-docker run --rm --name test-api -p 5000:5000 tungdao17/test-ml-score-api
+docker run --rm --name test-api -p 5000:5000 $DOCKER_ACC/test-ml-score-api
 docker ps
 # curl test, this should return {"score":[1,2]}
 curl http://localhost:5000/score \
@@ -16,14 +17,14 @@ curl http://localhost:5000/score \
 docker stop test-api
 # Push Docker image
 docker login
-docker push tungdao17/test-ml-score-api
+docker push $DOCKER_ACC/test-ml-score-api
 ```
 
 ## Deploy the simple ML app to local Kubernetes
 
 ```bash
 # Create a deployment
-kubectl create deploy test-ml-score-api --image=tungdao17/test-ml-score-api:latest
+kubectl create deploy test-ml-score-api --image=$DOCKER_ACC/test-ml-score-api:latest
 # Check the status
 kubectl rollout status deploy test-ml-score-api
 # Check pods
@@ -67,7 +68,7 @@ kubectl config get-contexts
 kubectl config use-context <local-context-name>
 
 # Create a deployment
-kubectl create deploy test-ml-score-api --image=tungdao17/test-ml-score-api:latest
+kubectl create deploy test-ml-score-api --image=$DOCKER_ACC/test-ml-score-api:latest
 # Expose the deployment
 kubectl expose deploy test-ml-score-api --port 5000 --type=LoadBalancer --name test-ml-score-ap
 i-lb
@@ -88,14 +89,14 @@ kubectl delete deploy test-ml-score-api
 
 ```bash
 # Create resources
-kubectl apply -f py-flask-ml-score-api/py-flask-ml-score.yaml
+kubectl apply -f py-flask-app/py-flask-ml-score.yaml
 # Check resources
 kubectl get all -n test-ml-app
 # Set default namespace for current context if you want
 kubectl config set-context --current -n <namespace>
 # Perform LoadBalancer service test same as the previous section
 # Clean resources
-kubectl delete -f py-flask-ml-score-api/py-flask-ml-score.yaml
+kubectl delete -f py-flask-app/py-flask-ml-score.yaml
 ```
 
 ## Deploy to EKS using Helm
@@ -118,9 +119,9 @@ helm delete test-ml-app
 
 ```bash
 # Build Docker image
-docker build -t tungdao17/test-ml-score-seldon-api:latest seldon-ml-score-component
+docker build -t $DOCKER_ACC/test-ml-score-seldon-api:latest seldon-app
 # Test image locally
-docker run --rm --name test-api -p 9000:9000 tungdao17/test-ml-score-seldon-api:latest
+docker run --rm --name test-api -p 9000:9000 $DOCKER_ACC/test-ml-score-seldon-api:latest
 # curl test, this should return
 # {"data":{"names":["t:0","t:1"],"tensor":{"shape":[2,2],"values":[0,0,1,1]}},"meta":{}}
 curl -g http://localhost:9000/predict \
@@ -132,7 +133,7 @@ curl -d '{"data": {"names": ["a", "b"],
     -X POST http://localhost:9000/api/v1.0/predictions \
     -H "Content-Type: application/json"
 # Push Docker image
-docker push tungdao17/test-ml-score-seldon-api:latest
+docker push $DOCKER_ACC/test-ml-score-seldon-api:latest
 
 # Install Seldon-core and Ambassador. Ref: https://docs.seldon.io/projects/seldon-core/en/latest/examples/seldon_core_setup.html
 kubectl create namespace seldon-system
@@ -150,7 +151,7 @@ kubectl rollout status deployment.apps/ambassador -n seldon-system
 helm list -n seldon-system
 
 # Deploy our app using prebuilt chart
-kubectl apply -f seldon-ml-score-component/seldon.yaml
+kubectl apply -f seldon-app/seldon.yaml
 # Get deployment name
 kubectl get deploy
 # Wait until the service runs, replace mlscore-single-model-0-classifier with your deployment name
@@ -201,7 +202,7 @@ curl http://<ambassador-domain>:80/seldon/default/mlscore/api/v0.1/predictions \
 ## Cleanup
 
 ```bash
-kubectl delete -f seldon-ml-score-component/seldon.yaml
+kubectl delete -f seldon-app/seldon.yaml
 helm delete ambassador -n seldon-system
 helm repo remove datawire
 helm delete seldon-core -n seldon-system
