@@ -101,5 +101,15 @@ kubectl delete -f py-flask-ml-score-api/py-flask-ml-score.yaml
 ## Deploy to EKS using Helm
 
 ```bash
-# Instal Helm
+# Install Helm
+# Install app dry run
+helm install helm-ml-score-app --debug --dry-run --generate-name
+# Install
+helm install test-ml-app helm-ml-score-app
+# Check Helm chart
+helm list
+helm status test-ml-app
+# Perform LoadBalancer service test same as the previous section
+# Clean resources
+helm delete test-ml-app
 ```

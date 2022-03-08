@@ -21,7 +21,7 @@ spec:
         app: test-ml-score-api
     spec:
       containers:
-      - image: alexioannides/test-ml-score-api:latest
+      - image: tungdao17/test-ml-score-api:latest
         name: test-ml-score-api
         ports:
         - containerPort: 5000
