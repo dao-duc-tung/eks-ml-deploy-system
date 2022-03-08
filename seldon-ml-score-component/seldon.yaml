@@ -15,6 +15,10 @@ spec:
         containers:
         - name: classifier
           image: tungdao17/test-ml-score-seldon-api:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
     graph:
       children: []
       endpoint:
