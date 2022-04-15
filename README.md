@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/dao-duc-tung/k8s-mlops">
+  <a href="https://github.com/dao-duc-tung/eks-ml-deploy-system">
     <img src="assets/banner.png" alt="Logo" width="300" height="100">
   </a>
 
@@ -316,4 +316,4 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
 Tung Dao - [LinkedIn](https://www.linkedin.com/in/tungdao17/)
 
-Project Link: [https://github.com/dao-duc-tung/k8s-mlops](https://github.com/dao-duc-tung/k8s-mlops)
+Project Link: [https://github.com/dao-duc-tung/eks-ml-deploy-system](https://github.com/dao-duc-tung/eks-ml-deploy-system)
