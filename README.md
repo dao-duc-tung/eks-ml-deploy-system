@@ -1,4 +1,4 @@
-# Kubernetes MLOps
+# EKS ML Deployment System
 
 <!-- PROJECT LOGO -->
 <br />
