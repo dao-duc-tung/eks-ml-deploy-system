@@ -7,7 +7,7 @@
     <img src="assets/banner.png" alt="Logo" width="300" height="100">
   </a>
 
-  <h3 align="center">Kubernetes MLOps</h3>
+  <h3 align="center">EKS ML Deployment System</h3>
 </p>
 
 <!-- TABLE OF CONTENTS -->
